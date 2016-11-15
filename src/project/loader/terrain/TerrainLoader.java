@@ -3,9 +3,14 @@ package project.loader.terrain;
 import f16cs350.atc.datatype.CoordinatesWorld3D_ATC;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class TerrainLoader {
+    private enum Type{
+        RLAT, RLON, RALT, NODE, SURFACE, TERRAIN
+    }
+
     private class Coordinate{
         final int index;
         final int degrees;
@@ -94,6 +99,13 @@ public class TerrainLoader {
         }
     }
 
+    private class Terrain{
+        ArrayList<Surface> surfaces = new ArrayList<>();
+        int[] indices;
+        public Terrain (int indices[] ){
+            this.indices = indices;
+        }
+    }
 
     private File terrainDefinition;
     private Hashtable<Integer, Coordinate> latitudeLookup = new Hashtable<>();
@@ -109,8 +121,21 @@ public class TerrainLoader {
     }
 
     public List<CoordinatesWorld3D_ATC> parse(){
+        Scanner fin;
+
+        try{
+            fin = new Scanner(terrainDefinition);
+        }catch (FileNotFoundException e){
+            throw new RuntimeException(e.getMessage());
+        }
+
+        ArrayList<CoordinatesWorld3D_ATC> terrain = new ArrayList<>();
 
         return null;
+    }
+
+    private void fillTables(Scanner fin) {
+
     }
 
     public String toString(){
